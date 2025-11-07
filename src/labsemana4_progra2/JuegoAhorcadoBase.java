@@ -5,7 +5,9 @@
 package labsemana4_progra2;
 
 import java.util.ArrayList;
-import labsemana4_progra2.Exceptions.*;
+import labsemana4_progra2.Exceptions.LetraRepetidaException;
+import labsemana4_progra2.Exceptions.LetraInvalidaException;
+import labsemana4_progra2.Exceptions.SinIntentosException;
 /**
  *
  * @author ljmc2
@@ -104,19 +106,19 @@ public abstract class JuegoAhorcadoBase implements Ahorcable {
             throw new LetraRepetidaException("La letra '" + letra + "' ya fue usada.");
     }
 
-    
-    public boolean jugar(char letra) throws LetraRepetidaException, LetraInvalidaException, SinIntentosException {
+    @Override
+    public boolean jugar(char letra)throws LetraRepetidaException, LetraInvalidaException, SinIntentosException {
         validarLetra(letra);
         letrasUsadas.add(letra);
 
         if (verificarLetra(letra)) {
             actualizarPalabraActual(letra);
-            return true; // letra correcta
+            return true;
         } else {
             intentos++;
             if (intentos >= limiteIntentos)
-                throw new SinIntentosException("💀 Has perdido. La palabra era: " + palabraSecreta);
-            return false; // letra incorrecta
+                throw new SinIntentosException("Has perdido. La palabra era: " + palabraSecreta);
+            return false;
         }
     }
 

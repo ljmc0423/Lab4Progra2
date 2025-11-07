@@ -35,7 +35,10 @@ public class MenuPrincipal extends JFrame{
         btnFijo.addActionListener(e -> {
             
             JuegoAhorcadoFijo juegoFijo = new JuegoAhorcadoFijo("ejemplo");
+            
+            new JuegoAhorcadoGUI(this, new JuegoAhorcadoAzar(admin)).setVisible(true);
             juegoFijo.inicializarPalabraSecreta();
+            setVisible(false);
             
         });
 
