@@ -28,7 +28,7 @@ public class MenuPrincipal extends JFrame{
         btnAzar = new JButton("Jugar - Palabra al Azar");
 
         btnAdmin.addActionListener(e -> {
-            new AdminGUI(this).setVisible(true);
+            new AdminGUI(this,admin).setVisible(true);
             setVisible(false);
         });
 

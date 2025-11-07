@@ -20,9 +20,9 @@ public class AdminGUI extends JFrame {
     private JButton btnAgregar, btnVolver;
     private JFrame menuPrincipal;
 
-    public AdminGUI(JFrame menu) {
+    public AdminGUI(JFrame menu, AdminPalabrasSecretas adminCompartido) {
         this.menuPrincipal = menu;
-        admin = new AdminPalabrasSecretas();
+        this.admin = adminCompartido;
 
         setTitle("Administrador de Palabras");
         setSize(400, 400);
