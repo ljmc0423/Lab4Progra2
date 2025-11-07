@@ -63,43 +63,26 @@ public class JuegoAhorcadoGUI extends JFrame {
 
     private void jugarTurno() {
         if (txtLetra.getText().isEmpty()) return;
-
         char letra = txtLetra.getText().toLowerCase().charAt(0);
         txtLetra.setText("");
 
         try {
-            juego.validarLetra(letra);
-            juego.letrasUsadas.add(letra);
-
-            if (juego.verificarLetra(letra)) {
-                juego.actualizarPalabraActual(letra);
-                lblMensaje.setText("¡Letra correcta!");
-            } else {
-                juego.intentos++;
-                lblMensaje.setText("Letra incorrecta.");
-            }
-
-            actualizarVista();
+            boolean acierto = juego.jugar(letra);
+            lblMensaje.setText(acierto ? "¡Letra correcta!" : "Letra incorrecta.");
+            lblPalabra.setText(juego.getPalabraActual());
+            lblFigura.setText(juego.imprimirFigura(juego.intentos));
 
             if (juego.hasGanado()) {
-                lblMensaje.setText("🎉 ¡Ganaste! La palabra era: " + juego.palabraSecreta);
+                lblMensaje.setText("¡Ganaste! La palabra era: " + juego.getPalabraSecreta());
                 desactivarJuego();
-            } else if (juego.intentos >= juego.limiteIntentos) {
-                throw new SinIntentosException("💀 Has perdido. La palabra era: " + juego.palabraSecreta);
             }
 
-        } catch (LetraInvalidaException | LetraRepetidaException ex) {
-            lblMensaje.setText("⚠️ " + ex.getMessage());
+        } catch (LetraRepetidaException | LetraInvalidaException ex) {
+            lblMensaje.setText(ex.getMessage());
         } catch (SinIntentosException ex) {
             lblMensaje.setText(ex.getMessage());
             desactivarJuego();
         }
-    }
-
-    private void actualizarVista() {
-        lblPalabra.setText(juego.getPalabraActual());
-        lblIntentos.setText("Intentos restantes: " + (juego.limiteIntentos - juego.intentos));
-        lblFigura.setText(juego.imprimirFigura());
     }
 
     private void desactivarJuego() {

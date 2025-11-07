@@ -4,12 +4,14 @@
  */
 package labsemana4_progra2;
 
+import labsemana4_progra2.Exceptions.*;
+
 /**
  *
  * @author ljmc2
  */
 public interface Ahorcable {
     void inicializarPalabraSecreta();
-    void jugar();
+    boolean jugar(char letra)throws LetraRepetidaException, LetraInvalidaException, SinIntentosException;
 }
 

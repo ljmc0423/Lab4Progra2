@@ -4,57 +4,29 @@
  */
 package labsemana4_progra2;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author ljmc2
  */
-public class Main extends JFrame{
-    private JButton btnAdmin, btnFijo, btnAzar;
+public class Main {
 
-    public Main() {
-        setTitle("Menú Principal - Juego del Ahorcado");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400, 300);
-        setLocationRelativeTo(null);
-        setLayout(new GridLayout(3, 1, 10, 10));
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        AdminPalabrasSecretas admin = new AdminPalabrasSecretas();
 
-        btnAdmin = new JButton("Administrar Palabras");
-        btnFijo = new JButton("Jugar - Palabra Fija");
-        btnAzar = new JButton("Jugar - Palabra al Azar");
+        JuegoAhorcadoFijo juegoFijo = new JuegoAhorcadoFijo("ejemplo");
+        juegoFijo.inicializarPalabraSecreta();
 
-        btnAdmin.addActionListener(e -> {
-            new AdminGUI(this).setVisible(true);
-            setVisible(false);
+        JuegoAhorcadoAzar juegoAzar = new JuegoAhorcadoAzar(admin);
+        juegoAzar.inicializarPalabraSecreta();
+
+        SwingUtilities.invokeLater(() -> {
+            new MenuPrincipal(admin).setVisible(true);
         });
-
-        btnFijo.addActionListener(e -> {
-            
-            JuegoAhorcadoFijo juegoFijo = new JuegoAhorcadoFijo("ejemplo");
-            juegoFijo.inicializarPalabraSecreta();
-            
-        });
-
-        btnAzar.addActionListener(e -> {
-            
-            AdminPalabrasSecretas admin = new AdminPalabrasSecretas();
-            JuegoAhorcadoAzar juegoAzar = new JuegoAhorcadoAzar(admin);
-            juegoAzar.inicializarPalabraSecreta();
-            new JuegoAhorcadoGUI(this, new JuegoAhorcadoAzar(admin)).setVisible(true);
-            setVisible(false);
-            
-        });
-
-        add(btnAdmin);
-        add(btnFijo);
-        add(btnAzar);
     }
     
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            new Main().setVisible(true);
-        });
-    }
 }
